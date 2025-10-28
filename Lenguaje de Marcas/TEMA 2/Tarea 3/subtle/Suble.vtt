@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+¡Hola! Bienvenido a este video de ejemplo.
+
+00:00:08.000 --> 00:00:16.000
+Este es un ejemplo de como implementar el elemento track.
+
+00:00:016.000 --> 00:00:24.000
+Para ello tuve que crear un nuevo archivo .vtt
+
+00:00:24.000 --> 00:00:32.000
+Y luego, tuve que implementarlo con la etiqueta track.
+
+00:00:32.000 --> 00:00:40.000
+Finalmente, establecí el archivo concreto y utilize el formato concreto para poder establecer los subtítulos.

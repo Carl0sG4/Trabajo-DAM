@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo2.png" type="image/png">
+    <title>Carlos Guaraca Nagua</title>
+</head>
+
+<body>
+
+    <h1>Los animales de la selva</h1>
+    <p>Estos son 5 de los animales más peligrosos de la selva</p>
+
+    <br>
+
+    <div class="section">
+        <div class="article">
+            <h2>Número 1</h2>
+            <p> El león es una de las bestias mas ferozes de la <strong>selva amazona</strong></p>
+            <p> Utiliza sus colmillos <em> (una de sus armas más letales) </em></p>
+
+            <br>
+
+            <kbd>Armas letales de los leones: Garras, colmillos y cola.</kbd>
+
+            <h3>Recursos multimedia</h3>
+
+            <figure>
+                <img src="img/leones.png" alt="Este elementos no se pudo cargar" max width="360px">
+                <figcaption>Familia de leones acechando a su presa</figcaption>
+
+            </figure>
+
+            <kbd>La etiqueta <strong>figure</strong> funciona mediante la implementacióń de una imagen junto
+                a una breve descripción de ella, por lo que la principal diferencia entre <strong>figure</strong> 
+                y <strong>imag</strong> es la capacidad de poner una descripción en ella en <strong>figure</strong>.
+            </kbd>
+
+            <br>
+            <br>
+
+            <div id="videoconsub">
+
+                <video width="640" height="360" controls autoplay loop muted>
+                    <source src="mp4/Leones4.mp4" type="video/mp4">
+
+                    <track src="subtle/Suble.vtt" kind="subtitles" srclang="es" label="Español" default>
+
+                    Tu navegador no soporta el elemento <code>video</code>.
+
+                </video>
+
+            </div>
+
+            <br>
+
+            <kbd>Para poder hacer que se reproduciese en bucle en tenido que añadir dentro
+                de la etiqueta video el atibuto <strong>loop</strong>, el atributo <stron>autoplay</stron>
+                permite iniciar el video una vez abierto la página, y por último utilize el atributo
+                <strong>muted</strong> ya que al investigar, descubrí que era necesario este atibuto
+                para poder permitir que se reproduzca automáticamente el video en algunos navegadores
+            </kbd>
+
+            <br>
+            <br>
+
+            <audio controls>
+                <source src="mp3/Leones3.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+
+            <br>
+            <br>
+
+            <kbd>Al igual que la etiqueta <strong>video</strong>, se debe determinar el recurso y el tipo
+                de audio. También implemente un texto alternativo, al igual que en <strong>video</strong> por si el
+                audio no es compatible y no lo soporta el navegador
+            </kbd>
+
+            <br>
+            <br>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/dy9_9S8ADqU?si=ljkI9VsBRE-8RTP1"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+            <footer>
+                © 2025 Mi Sitio Web — Todos los derechos reservados
+            </footer>
+
+            <br>
+            <br>
+
+            <kbd>Para utilizar el elemento <strong>track</strong>, se debe de realizar con un archivo local,
+                puesto que no funciona con videos de youtube. al inverstigar, descubrí, que estos no pueden utilizar
+                esa etiqueta debido a que están dentro de un <strong>inframe</strong>, un tipo de etiqueta que no
+                permite modificar el contenido. Es por eso que utilize el elemento <strong>track</strong> dentro del 
+                <a href="#videoconsub">anterior video</a>.
+            </kbd>
+
+            <br>
+            <br>
+
+            <kbd>Por último, el lenguaje de marcas con el que esta relacionado el elemento <strong>track</strong> es 
+                <strong>WebVTT</strong> (Web Video Text Tracks Format), un lenguaje de marca basado en texto y creado
+                especificamente para describir pistas de texto sincronizadas con un video o audio en HTML5.
+            </kbd>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>

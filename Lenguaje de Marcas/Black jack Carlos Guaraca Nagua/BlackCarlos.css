@@ -1,0 +1,147 @@
+
+body {
+    background-image:url(https://st4.depositphotos.com/4083027/22191/v/450/depositphotos_221912462-stock-illustration-green-abstract-background-striped-textured.jpg);
+    background-size: cover;
+}
+
+.header {
+    text-decoration:underline;
+    font-size: x-large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:rgb(233, 236, 26);
+    text-align: center;
+}
+
+.nav {
+    border-style: solid;
+    border-color: rgb(233, 236, 26);
+    padding: 1%;
+}
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.article {
+    flex: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/004/775/601/original/poker-table-illustration-isolated-poker-or-black-jack-table-with-green-carpet-realistic-casino-online-poker-table-element-gambling-room-concept-design-illustration-vector.jpg');    
+    background-position: center ;
+    border-bottom: solid;
+    border-left: solid;
+    padding: 2%;
+}
+
+.aside {
+    width: 200px;
+    margin-left: auto;
+    border:solid;
+    border-top:unset;
+    padding: 1%;
+}
+
+.footer {
+    text-align: center;
+    background: rgb(0, 100, 0);
+
+}
+
+input {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    cursor: pointer;  
+}
+
+
+.Pedir {
+    border-radius: 10px;
+    padding: 1.3%;
+    border-color: #007bff;
+    border-style: solid; 
+    border-width: 3px;   
+    transition: transform 0.1s ease-in-out;
+    font-weight: bold;
+    
+}
+
+.Pedir:active {
+    transform: scale(0.9);
+
+}
+
+.Pedir:hover {
+    background: #5faff1;
+}
+
+.Reinicio {
+    border-style: solid; 
+    padding: 1.3%;
+    margin: 3%;
+    border-radius: 10px;
+    border-color:#ff0800;
+    border-width: 3px;
+    transition: transform 0.1s ease-in-out;
+    font-weight: bold;
+}
+
+.Reinicio:hover {
+    background: #d6726e;
+}
+
+.Reinicio:active {
+    transform: scale(0.9);
+
+}
+
+.Plantar {
+    border-radius: 10px;
+    padding: 1.3%;
+    border-color: #0f790c;
+    border-style: solid; 
+    border-width: 3px;   
+    transition: transform 0.1s ease-in-out;
+    font-weight: bold;
+}
+
+.Plantar:active {
+    transform: scale(0.9);
+}
+
+.Plantar:hover {
+    background: #7ee94d;
+}
+
+
+
+ .carta {
+    display: inline-block;
+    background: rgb(0, 100, 0);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#table {
+    min-height: 200px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px black;
+}
+ 
+
+
+.Pedir:disabled, 
+.Plantar:disabled {
+    opacity: 0.6; 
+    cursor: not-allowed;
+    border-color: #cccccc; 
+
+    background: #cccccc;
+    color: #666666;
+}
+
+

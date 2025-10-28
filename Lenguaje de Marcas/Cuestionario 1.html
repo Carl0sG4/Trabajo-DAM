@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cuestionario Complejo</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --accent: #7c3aed;
+            --muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius: 12px;
+            --glass: rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+                "Helvetica Neue", Arial;
+            margin: 0;
+            background: linear-gradient(180deg, #071021 0%, #06202e 100%);
+            color: #e6eef8;
+            padding: 32px;
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        p.lead {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        /* Card */
+        .card {
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.02),
+                    rgba(255, 255, 255, 0.01));
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6);
+        }
+
+        /* Progress */
+        .progress {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 18px 0;
+        }
+
+        .progress>i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #4f46e5);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Questions layout */
+        form.quiz {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 18px;
+        }
+
+        .q-list {
+            min-height: 420px;
+        }
+
+        .q {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .q h3 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label.answer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--glass);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        label.answer input {
+            accent-color: var(--accent);
+        }
+
+        label.answer:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        aside.side {
+            position: sticky;
+            top: 20px;
+            height: max-content;
+        }
+
+        .side .card {
+            padding: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--accent), #4f46e5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .small {
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        /* Result modal */
+        .result {
+            display: none;
+            position: fixed;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg,
+                    rgba(1, 4, 9, 0.6),
+                    rgba(4, 6, 15, 0.6));
+        }
+
+        .result.show {
+            display: flex;
+        }
+
+        .result-box {
+            background: #051026;
+            padding: 22px;
+            border-radius: 14px;
+            min-width: 320px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .score {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+
+        .breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 880px) {
+            form.quiz {
+                grid-template-columns: 1fr;
+            }
+
+            aside.side {
+                position: static;
+            }
+        }
+
+        /* Matching visual touches */
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44'><rect rx='10' width='44' height='44' fill='%237c3aed'/><text x='50%' y='55%' font-size='22' text-anchor='middle' fill='white' font-family='sans-serif'>Q</text></svg>"
+                alt="logo" style="border-radius: 8px" />
+            <div>
+                <h1>Cuestionario complejo</h1>
+                <p class="lead">
+                    Variedad de preguntas: opción única, múltiples respuestas, escala y
+                    emparejamiento. Diseño responsive y accesible.
+                </p>
+            </div>
+        </header>
+
+        <div class="card">
+            <div class="progress" aria-hidden>
+                <i id="progressBar"></i>
+            </div>
+
+            <form class="quiz" id="quizForm" onsubmit="return false;">
+                <div class="q-list" id="questions">
+                    <!-- Pregunta 1: opción única -->
+                    <section class="q" data-qid="1">
+                        <h3>
+                            1. ¿Cuál es la etiqueta correcta para definir una sección de
+                            navegación en HTML5?
+                        </h3>
+                        <div class="meta">Selecciona una opción</div>
+                        <div class="answers">
+                            <label class="answer"><input type="radio" name="q1" value="header" />
+                                &lt;header&gt;</label>
+                            <label class="answer"><input type="radio" name="q1" value="nav" />
+                                &lt;nav&gt;</label>
+                            <label class="answer"><input type="radio" name="q1" value="section" />
+                                &lt;section&gt;</label>
+                            <label class="answer"><input type="radio" name="q1" value="div" />
+                                &lt;div&gt;</label>
+                        </div>
+                    </section>
+
+                    <!-- Pregunta 2: múltiples respuestas -->
+                    <section class="q" data-qid="2">
+                        <h3>
+                            2. Selecciona las tecnologías que son parte habitual del
+                            Front-end moderno.
+                        </h3>
+                        <div class="meta">Puedes seleccionar varias</div>
+                        <div class="answers">
+                            <label class="answer"><input type="checkbox" name="q2" value="html" /> HTML</label>
+                            <label class="answer"><input type="checkbox" name="q2" value="css" /> CSS</label>
+                            <label class="answer"><input type="checkbox" name="q2" value="python" />
+                                Python</label>
+                            <label class="answer"><input type="checkbox" name="q2" value="js" />
+                                JavaScript</label>
+                        </div>
+                    </section>
+
+                    <!-- Pregunta 3: escala -->
+                    <section class="q" data-qid="3">
+                        <h3>
+                            3. ¿Qué tan familiarizado estás con selectores CSS avanzados?
+                        </h3>
+                        <div class="meta">Desliza para indicar tu nivel</div>
+                        <div style="padding: 10px 0">
+                            <input type="range" name="q3" min="0" max="5" value="0"
+                                oninput="this.nextElementSibling.value = this.value" />
+                            <output>0</output>
+                        </div>
+                    </section>
+
+                    <!-- Pregunta 4: emparejamiento (selects) -->
+                    <section class="q" data-qid="4">
+                        <h3>4. Empareja la etiqueta HTML con su descripción.</h3>
+                        <div class="meta">Elige la respuesta correcta en cada select</div>
+                        <div class="answers">
+                            <div style="display: flex; gap: 10px; align-items: center">
+                                <div style="flex: 1">&lt;article&gt;</div>
+                                <select name="q4a">
+                                    <option value="">--Selecciona--</option>
+                                    <option value="indep">Contenido independiente</option>
+                                    <option value="nav">Navegación</option>
+                                    <option value="form">Formulario</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center">
+                                <div style="flex: 1">&lt;aside&gt;</div>
+                                <select name="q4b">
+                                    <option value="">--Selecciona--</option>
+                                    <option value="complement">Contenido complementario</option>
+                                    <option value="header">Encabezado</option>
+                                    <option value="footer">Pie</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Pregunta 5: pregunta difícil (checkboxes con penalización) -->
+                    <section class="q" data-qid="5">
+                        <h3>
+                            5. Marque todas las afirmaciones VERDADERAS sobre accesibilidad
+                            web.
+                        </h3>
+                        <div class="meta">
+                            Algunas respuestas suman y otras restan puntos
+                        </div>
+                        <div class="answers">
+                            <label class="answer"><input type="checkbox" name="q5" value="a11y1" /> Los roles
+                                ARIA siempre duplican la semántica de HTML.</label>
+                            <label class="answer"><input type="checkbox" name="q5" value="a11y2" /> Texto
+                                alternativo en imágenes mejora la accesibilidad.</label>
+                            <label class="answer"><input type="checkbox" name="q5" value="a11y3" /> El
+                                contraste de color no importa si hay texto grande.</label>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="side">
+                    <div class="card">
+                        <div class="small">Progreso</div>
+                        <div id="progressText" style="font-weight: 700; margin: 6px 0">
+                            0/5 respondidas
+                        </div>
+                        <div class="tags" aria-hidden>
+                            <span class="tag">Opción única</span>
+                            <span class="tag">Múltiple</span>
+                            <span class="tag">Escala</span>
+                            <span class="tag">Emparejar</span>
+                        </div>
+                        <hr style="margin: 12px 0;border: none;border-top: 1px solid rgba(255, 255, 255, 0.03);" />
+                        <button class="btn" id="submitBtn" type="button">
+                            Enviar y ver resultado
+                        </button>
+                        <div style="margin-top: 10px; font-size: 0.9rem; color: var(--muted)">
+                            Puedes revisar y cambiar respuestas antes de enviar.
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 12px; text-align: center">
+                        <button class="small" id="resetBtn" type="button">
+                            Reiniciar cuestionario
+                        </button>
+                    </div>
+                </aside>
+            </form>
+
+            <footer>
+                Consejo: este cuestionario es demostrativo. Puedes modificar las
+                preguntas, pesos y añadir más lógica según necesites.
+            </footer>
+        </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result" id="resultModal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="result-box">
+            <div class="small">Tu puntuación</div>
+            <div class="score" id="scoreText">0 / 100</div>
+            <div id="message">—</div>
+            <div class="breakdown" id="breakdown"></div>
+            <div style="margin-top: 14px">
+                <button class="btn" id="closeResult">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica de puntuación (sencilla pero detallada)
+        const submitBtn = document.getElementById("submitBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+        const resultModal = document.getElementById("resultModal");
+        const scoreText = document.getElementById("scoreText");
+        const message = document.getElementById("message");
+        const breakdown = document.getElementById("breakdown");
+        const closeResult = document.getElementById("closeResult");
+        const form = document.getElementById("quizForm");
+
+        const questions = Array.from(document.querySelectorAll(".q"));
+
+        function updateProgress() {
+            let answered = 0;
+            questions.forEach((q) => {
+                const inputs = q.querySelectorAll("input,select,output");
+                let ok = false;
+                inputs.forEach((i) => {
+                    if (i.type === "radio" || i.type === "checkbox") {
+                        if (i.checked) ok = true;
+                    } else if (i.tagName === "SELECT") {
+                        if (i.value) ok = true;
+                    } else if (i.type === "range") {
+                        if (parseInt(i.value) !== 0) ok = true;
+                    }
+                });
+                if (ok) answered++;
+            });
+            progressBar.style.width =
+                Math.round((answered / questions.length) * 100) + "%";
+            progressText.textContent =
+                answered + "/" + questions.length + " respondidas";
+        }
+
+        // Revisa progreso cuando cambian inputs
+        form.addEventListener("change", updateProgress);
+        form.addEventListener("input", updateProgress);
+        updateProgress();
+
+        function calculateScore() {
+            // Cada pregunta tiene peso. Total 100.
+            const scores = [];
+            // Q1: correcta 'nav'
+            const q1 = form.querySelector("input[name=q1]:checked");
+            scores.push({
+                q: 1,
+                score: q1 && q1.value === "nav" ? 20 : 0,
+                max: 20,
+            });
+
+            // Q2: html,css,js correct (3/4). Cada correcta suma, elegir python resta.
+            const q2checks = Array.from(
+                form.querySelectorAll("input[name=q2]:checked")
+            ).map((n) => n.value);
+            let q2score = 0;
+            if (q2checks.includes("html")) q2score += 10;
+            if (q2checks.includes("css")) q2score += 10;
+            if (q2checks.includes("js")) q2score += 10;
+            if (q2checks.includes("python")) q2score -= 5;
+            q2score = Math.max(0, q2score);
+            scores.push({ q: 2, score: q2score, max: 30 });
+
+            // Q3: range 0-5 -> map to 0-15
+            const q3 = parseInt(form.querySelector("input[name=q3]").value || 0);
+            scores.push({ q: 3, score: Math.round((q3 / 5) * 15), max: 15 });
+
+            // Q4: matching
+            const q4a = form.querySelector("select[name=q4a]").value;
+            const q4b = form.querySelector("select[name=q4b]").value;
+            let q4score = 0;
+            if (q4a === "indep") q4score += 10;
+            if (q4b === "complement") q4score += 5;
+            scores.push({ q: 4, score: q4score, max: 15 });
+
+            // Q5: accessibility. Good: a11y2 true +5. a11y1 false (should be false) so if checked subtract. a11y3 false (if checked subtract)
+            const q5checks = Array.from(
+                form.querySelectorAll("input[name=q5]:checked")
+            ).map((n) => n.value);
+            let q5score = 0;
+            if (q5checks.includes("a11y2")) q5score += 20;
+            if (q5checks.includes("a11y1")) q5score -= 5;
+            if (q5checks.includes("a11y3")) q5score -= 5;
+            q5score = Math.max(0, q5score);
+            scores.push({ q: 5, score: q5score, max: 20 });
+
+            const totalScore = scores.reduce((s, it) => s + it.score, 0);
+            const totalMax = scores.reduce((s, it) => s + it.max, 0);
+            return { scores, totalScore, totalMax };
+        }
+
+        submitBtn.addEventListener("click", () => {
+            const { scores, totalScore, totalMax } = calculateScore();
+            scoreText.textContent = totalScore + " / " + totalMax;
+            // Message
+            const pct = Math.round((totalScore / totalMax) * 100);
+            if (pct >= 85)
+                message.textContent = "Excelente — dominio fuerte de conceptos.";
+            else if (pct >= 60)
+                message.textContent = "Bien — buena base con espacio para mejorar.";
+            else message.textContent = "Necesita repasar algunos conceptos claves.";
+
+            // breakdown
+            breakdown.innerHTML = "";
+            scores.forEach((s) => {
+                const el = document.createElement("div");
+                el.innerHTML = `<strong>P${s.q}:</strong> ${s.score}/${s.max}`;
+                breakdown.appendChild(el);
+            });
+
+            resultModal.classList.add("show");
+            resultModal.setAttribute("aria-hidden", "false");
+        });
+
+        closeResult.addEventListener("click", () => {
+            resultModal.classList.remove("show");
+            resultModal.setAttribute("aria-hidden", "true");
+        });
+
+        resetBtn.addEventListener("click", () => {
+            form.reset();
+            updateProgress();
+        });
+
+        // Accessibility: close modal with Esc
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                if (resultModal.classList.contains("show")) closeResult.click();
+            }
+        });
+    </script>
+</body>
+
+</html>

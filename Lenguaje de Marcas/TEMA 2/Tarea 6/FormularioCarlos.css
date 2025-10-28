@@ -1,0 +1,64 @@
+body {
+        font-family: Arial;
+        background-color: #f2f6fa;
+        padding: 20px;
+}
+
+
+h1 {
+        text-align: center;
+        color: #0b2e59;
+}
+
+form {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+}
+
+fieldset {
+        border: 2px solid #0b2e59;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #f9fbfd;
+}
+
+
+legend {
+        font-weight: bold;
+        color: #0b2e59;
+}
+
+
+label {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 5px;
+}
+
+input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        box-sizing: border-box; //implementado para mantener el textarea del comentario dentro del fieldset
+}
+
+
+input[type="radio"], input[type="checkbox"] {
+        margin-right: 5px;
+}
+
+input[type="submit"], input[type="reset"] {
+        background-color: #0b2e59;
+        color: white;
+        padding: 16px;
+        border-radius: 5px;
+        margin-top: 10px;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+        background-color: #154c87;
+}
