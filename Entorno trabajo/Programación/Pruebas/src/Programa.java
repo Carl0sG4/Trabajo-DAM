@@ -4,49 +4,65 @@ public class Programa {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Introduce un número de mes: ");
-        int mes= sc.nextInt();
-
-            switch (mes) {
-
-                case 12,1,2:
-
-                    System.out.println("En este mes es inverno");
-
-                    break;
-
-                case 3,4,5:
-
-                    System.out.println("En este mes es primavera");
-
-                    break;
-
-                case 6,7,8:
-
-                    System.out.println("En este mes es verano");
-
-                    break;
-
-                case 9,10,11:
-
-                    System.out.println("En este mes es otoño");
-
-                    break;
-
-                default:
-
-                    System.out.println("Opción no válida. Por favor, intentelo de nuevo.");
-
-                    break;
-
-
-            }
-            sc.close();
-
+        enum OperadoresLogicos {
+            SUMAR,
+            RESTAR,
+            MULTIPLICAR,
+            DIVIDIR,
         }
 
+        System.out.println("Introduce primer número");
+        double num1 = sc.nextDouble();
+
+        System.out.println("Introduce segundo número");
+        double num2 = sc.nextDouble();
+
+        sc.nextLine(); // Implemento una lectura de escaner de tipo linea para vaciar el bufer del
+                       // teclado (Tema 2_pag 40 de la Presentación)
+
+        System.out.println("Introduce la operación a realizar(SUMAR, RESTAR, MULTIPLICAR, DIVIDIR): ");
+        String caso = sc.nextLine().toUpperCase();
+
+        OperadoresLogicos operador = OperadoresLogicos.valueOf(caso); // Para cambiar el valor de la enumeración al
+                                                                      // valor de la variable caso (String)
+
+        switch (operador) {
+
+            case SUMAR:
+
+                System.out.println(num1 + num2);
+
+                break;
+
+            case RESTAR:
+
+                System.out.println(num1 - num2);
+
+                break;
+
+            case MULTIPLICAR:
+
+                System.out.println(num1 * num2);
+                ;
+
+                break;
+
+            case DIVIDIR:
+
+                System.out.println(num1 / num2);
+                ;
+
+                break;
+
+            default:
+
+                System.out.println("No es válido");
+
+                break;
+
+        }
+        sc.close();
 
     }
 
-
-    
+}
