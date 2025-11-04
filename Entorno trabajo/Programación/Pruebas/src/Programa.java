@@ -11,7 +11,7 @@ public class Programa {
 
         while (i<N) {
             if (N / i == 0) {
-                System.out.print("j");
+                System.out.print("l");
             }
             else {
                 System.out.print("k");
