@@ -4,20 +4,29 @@ public class Programa {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Introduce un número entero N: ");
-        int N = sc.nextInt();
+        final String contraseña = "ABCD";
+        int i = 0; 
+        boolean correcto = false;
 
-        int i= 1;
+        do {
+            System.out.print("Introduce la contraseña: ");
+            String intento = sc.nextLine();
 
-        while (i<N) {
-            if (N / i == 0) {
-                System.out.print("l");
+
+            if (intento.equals(contraseña)) {
+                System.out.println("Contraseña válida");
+                correcto = true;
+            } else {
+                System.out.println("Contraseña inválida");
+                i++;
             }
-            else {
-                System.out.print("k");
-            }
-            i++; 
+
+        } while (i<3 && !correcto);
+
+        if (!correcto) {
+            System.out.println("Has superado el número máximo de intentos.");
         }
+        
         sc.close();
     }
 }
