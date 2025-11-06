@@ -7,7 +7,7 @@ import java.lang.ArrayIndexOutOfBoundsException;
  * @since 3 de noviembre de 2025
  */
 
-public class Programa {
+public class Tarea8 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
