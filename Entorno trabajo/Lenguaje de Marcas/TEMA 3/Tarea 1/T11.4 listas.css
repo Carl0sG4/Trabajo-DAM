@@ -1,0 +1,11 @@
+ul>li {
+    background-color: rgb(186, 76, 219);
+}
+
+ul>li ol {
+    background-color: white;
+}
+
+ol>li {
+    background-color: pink;
+}
