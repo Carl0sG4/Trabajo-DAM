@@ -1,0 +1,39 @@
+/* 
+    Al realizar la práctica por completo, me percate de la incoherencia del color de los enlaces
+    con el color de fondo establecido en las listas desordenadas (no se veian los enlaces). Por
+    lo que para corregirlo, he cambiado el color de los enlaces a un color negro.
+*/
+a {
+    font-weight: bold;
+    color: rgb(8, 8, 8);
+}
+
+h1 {
+    color: rgb(255,0,0);
+}
+
+h2, h3 {
+    color: rgb(102,51,51);
+}
+
+h1,h2,h3 {
+    background-color: rgb(220,220,220);
+}
+
+ol {
+    color: rgb(0,255,0);
+    background-color: rgb(77,51,102)
+}
+
+ul {
+    background-color: rgb(128,77,51);
+}
+
+body {
+    border: 3px;
+    border-style: solid;
+}
+
+p {
+    color: rgb(102,153,204);
+}

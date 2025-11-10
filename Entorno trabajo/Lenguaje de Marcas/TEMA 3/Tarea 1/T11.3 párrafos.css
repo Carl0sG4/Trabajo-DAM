@@ -1,9 +1,9 @@
-p {
+#cambia1, #cambia3, #cambia5, #cambia7 {
     color: red;
     background-color: #CDCECF;
 }
 
-#cambia {
+#cambia2, #cambia4, #cambia6, #cambia8 {
     color: rgb(165, 165, 9);
     background-color: rgb(47, 238, 252);
 }
