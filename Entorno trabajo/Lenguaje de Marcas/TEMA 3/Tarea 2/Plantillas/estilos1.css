@@ -22,7 +22,7 @@ h1,h2,h3 {
 
 ol {
     color: rgb(0,255,0);
-    background-color: rgb(77,51,102)
+    background-color: rgb(77,51,102);
 }
 
 ul {
@@ -32,6 +32,8 @@ ul {
 body {
     border: 3px;
     border-style: solid;
+    border-color: rgb(0, 0, 0);
+    
 }
 
 p {
