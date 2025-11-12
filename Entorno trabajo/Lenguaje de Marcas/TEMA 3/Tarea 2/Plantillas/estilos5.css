@@ -1,0 +1,36 @@
+a {
+    font-weight: bold;
+    color: rgb(26,179,51);
+}
+
+h1 {
+    color: rgb(26,51,179);
+}
+
+h2, h3 {
+    color: rgb(179,153,51);
+}
+
+h1,h2,h3 {
+    background-color: rgb(220,220,220);
+}
+
+ol {
+    color: rgb(255, 255, 255);
+    background-color: rgb(179,26,26);
+}
+
+ul {
+    background-color: rgb(128,77,51);
+}
+
+body {
+    border: 6px;
+    border-style:solid;
+    border-radius: 30px;
+    border-color: rgb(165, 162, 162);
+}
+
+p {
+    font-style: italic;
+}
