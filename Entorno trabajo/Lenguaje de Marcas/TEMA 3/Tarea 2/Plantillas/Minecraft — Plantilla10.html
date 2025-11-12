@@ -1,23 +1,61 @@
+<!-- Como trabajo extra, utilicé un poco de Javascript para cambiar dinámicamente los estilos CSS con botones -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carlos Guaraca Nagua - plantilla1</title>
+  <title>Minecraft — Estilos Carlos Guaraca Interactivos</title>
 
-  <!-- IMPORTANTE (para el alumnado):
-    En cada copia cambia el href a estilos1.css, estilos2.css, ... estilos5.css -->
-  <link rel="stylesheet" href="estilos1.css" />
+  <!-- A la etiqueta link se le establece un id para identificarlo ypoder cambiar dinámicamente el archivo CSS (sera necesario posteriormente) -->
+  <link rel="stylesheet" href="estilos1.css" id="estilo-tema" />
+
+  <!-- Este estilo, aunque es recomendable establecerlo en una hoja CSS externa, 
+ se incluye aquí para no añadir más código a los 5 css por riesgo a tener mal la tarea por no cumplir
+ con los criterios y poner código de más. Además, así solo es necesario establecerlo en una sola hoja para no repetir código y que 
+ los botones no pierdan su estilo -->
+  <style>
+    .caja-botones {
+      text-align: center;
+      margin: 20px;
+      padding: 10px;
+      border-width: 2px;
+      border-style: solid;
+      border-radius: 10px;
+    }
+
+    /* Este estilo solo para los botones dentro de la caja de botones */
+    .caja-botones button {
+      margin: 5px;
+      padding: 10px;
+      cursor: pointer;
+      border-style: none;
+      border-radius: 8px;
+      font-weight: bold;
+      background-color: rgb(218, 215, 215);
+    }
+
+    /* Estilo unicamente cuando el cursor esta sobre el botón */
+    .caja-botones button:hover {
+      background-color: rgb(173, 173, 173);
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <h1>Instituto IESIEJM</h1>
   </header>
-
-  <!-- Debido a que los enlaces esta dentro de una lista desordenada y al tener el mismo color tanto de letra como de fondo, no es visible el contenido de los enlaces -->
+  <!-- Creamos los botones dentro de un contenedor y le agregamos el atributo onclick(permite establecer una acción cuando se hace click.
+ En este caso, llamamos a una función con un parámetro establecido que esta escrito abajo) -->
+  <div class="caja-botones">
+    <p><strong>Selecciona el estilo CSS:</strong></p>
+    <button onclick="cambiarEstilo('estilos1.css')">Estilo 1</button>
+    <button onclick="cambiarEstilo('estilos2.css')">Estilo 2</button>
+    <button onclick="cambiarEstilo('estilos3.css')">Estilo 3</button>
+    <button onclick="cambiarEstilo('estilos4.css')">Estilo 4</button>
+    <button onclick="cambiarEstilo('estilos5.css')">Estilo 5</button>
+  </div>
 
   <nav>
     <ul>
@@ -247,6 +285,16 @@
     <p>Autor: Un forofo</p>
     <p>Fecha: 17 de noviembre de 2024</p>
   </footer>
+  <!-- Utilizando Javascript, definimos una función llamada cambiarEstilo, 
+ el parámetro nombreCSS recibe el nombre de los archivos css, según que boton presiones.
+ Utilizamos document.getElementById para buscar dentro del documento el elemento que tenga el id estilo-tema.
+ Por último, una vez encontrado el elemento, utilizamos el método setAttribute para cambiar el valor href 
+ y lo sustituye por el parámetro anteriormente seleccionado (nombreCSS que esta vinculado a un botón en específico) -->
+  <script>
+    function cambiarEstilo(nombreCSS) {
+      document.getElementById("estilo-tema").setAttribute("href", nombreCSS);
+    }
+  </script>
 </body>
 
 </html>

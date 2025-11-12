@@ -1,27 +1,31 @@
+/* Aunque los enlaces viene predeterminado ya con línea subrayada, se especifica para mayor claridad y viene como un criterio para la tarea */
 a {
     text-decoration: underline;
-    color: rgb(26,179,51);
+    color: rgb(26, 179, 51);
 }
 
 h1 {
-    color: rgb(51,51,128);
+    color: rgb(51, 51, 128);
 }
 
-h2, h3 {
-    color: rgb(51,128,77);
+h2,
+h3 {
+    color: rgb(51, 128, 77);
 }
 
-h1,h2,h3 {
-    background-color: rgb(220,220,220);
+h1,
+h2,
+h3 {
+    background-color: rgb(220, 220, 220);
 }
 
 ol {
-    color: rgb(255,255,255);
-    background-color: rgb(102,51,77);
+    color: rgb(255, 255, 255);
+    background-color: rgb(102, 51, 77);
 }
 
 ul {
-    background-color: rgb(153,153,77);
+    background-color: rgb(153, 153, 77);
 }
 
 body {
@@ -31,5 +35,5 @@ body {
 }
 
 p {
-    color: rgb(102,179,128);
+    color: rgb(102, 179, 128);
 }

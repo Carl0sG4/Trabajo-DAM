@@ -1,36 +1,44 @@
 a {
     font-style: italic;
-    color: rgb(102,51,153);
+    color: rgb(102, 51, 153);
 }
 
 h1 {
-    color: rgb(153,102,51);
+    color: rgb(153, 102, 51);
 }
 
-h2, h3 {
-    color: rgb(179,153,51);
+h2,
+h3 {
+    color: rgb(179, 153, 51);
 }
 
-h1,h2,h3 {
-    background-color: rgb(220,220,220);
+h1,
+h2,
+h3 {
+    background-color: rgb(220, 220, 220);
 }
 
 ol {
-    color: rgb(0,0,0);
-    background-color: rgb(153,204,230);
+    color: rgb(0, 0, 0);
+    background-color: rgb(153, 204, 230);
 }
 
 ul {
-    background-color: rgb(230,230,204);
+    background-color: rgb(230, 230, 204);
 }
 
+/* Para que los bordes se vean punteados, utilizamos double */
 body {
     border: 4px;
-    border-style:double;
+    border-style: double;
     border-color: rgb(0, 0, 0);
 }
 
+/* El ejercicio dice que utilize el marrón suave para destacar algunas palabras,
+para ello, tendría que destacar ciertas palabras en cada párrafo utilizando strong
+o em, modificando el html (Un criterio que estaría incumpliedo establecido al principio de la tarea, 
+ya que lo único que se puede modificar es el title y la referencia del link),por lo que opte por utilizar el color en todo el párrafo */
 p {
     font-family: serif;
-    color: rgb(153,102,77);
+    color: rgb(153, 102, 77);
 }
