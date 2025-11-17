@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tarjeta Informativa</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e6e6e6;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Elemento FIXED */
+    .fixed {
+        position: fixed;
+        top: 120px;
+        left: 40px;
+        background: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        z-index: 10;
+    }
+
+    /* Header STICKY */
+    .sticky {
+        position: sticky;
+        top: 0;
+        background: #555;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        z-index: 5;
+        opacity: 0.9;
+    }
+
+    /* Tarjeta central */
+    .card {
+        width: 50%;
+        margin: 80px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+    }
+
+    /* Cajitas de texto */
+    .box {
+        background: black;
+        color: white;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
+    /* Absolute */
+    .btn-absolute {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        background: #d86741;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    /* Relative box */
+    .relative {
+        position: relative;
+        top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="fixed">Este es un elemento fijo</div>
+
+    <div class="sticky">Título del Evento: sticky</div>
+
+    <div class="card">
+        <div class="box">-2: Sticky: No está pegado aún porque respeta su flujo hasta que se activa</div>
+
+        <div class="box">Prueba a redimensionar el tamaño de la ventana para apreciar las limitaciones de position.</div>
+
+        <div class="box">Por eso tenemos flex y grid</div>
+
+        <div class="box relative">-1: Relative: Se desplaza de su posición pero el flujo respeta su hueco</div>
+
+        <button class="btn-absolute">Ver más (absolute)</button>
+    </div>
+
+</body>
+</html>
