@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Temperatura1",
+            "request": "launch",
+            "mainClass": "Temperatura1",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
+            "name": "Debug Temperaturas",
+            "request": "launch",
+            "mainClass": "Temperaturas",
+            "projectName": ""
+        }
+    ]
+}
