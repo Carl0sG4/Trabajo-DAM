@@ -1,16 +1,67 @@
 body {
-    background-image: url("Img/superficie-de-madera-mirando-hacia-escena-de-restaurante.jpg");
+    background-image: url("superficie-de-madera-mirando-hacia-escena-de-restaurante.jpg");
     background-repeat: no-repeat;
-    background-size: cover;     
-    background-position: center; 
+    /* Evita que la imagen se repita */
+    background-size: cover;
+    /* Hace que la imagen cubra todo el fondo */
+    background-position: absolute;
+    /* Como tenía que utilizar la posición absolute del fondo, utilize la propiedad background-position en vez de position */
+    z-index: -1;
+    /* Asegura que el fondo esté detrás de otros elementos */
 }
 
-p{
+.sticky-box {
+    font-size: 20px;
+    background-color: #5A3E2B;
+    color: #F5E9D6;
+
+    position: sticky;
+    top: 0px;
+    /* Permite que el elemento sticky se pegue en la parte superior de la ventana al hacer scroll */
+
+    height: 100px;
+    line-height: 100px;
+    /* Centra verticalmente el texto dentro del cuadro */
+    text-align: center;
+
+    border-radius: 20px;
+    margin: 30px;
+
+    z-index: 1;
+}
+
+.fixed-box {
+    background-color: #8A9B68;
+    color: #FFFFFF;
+
+    position: fixed;
+
+    top: 200px;
+    left: 50px;
+
+    padding: 10px 10px;
+    border-radius: 6px;
+}
+
+.caja {
+    width: 50%;
+    /* Ancho del contenedor */
+    margin: auto;
+    background-color: #CE9F6A;
+    color: #3C2F25;
+    padding: 5px 0px 80px 0px;
+    /* Espaciado interno: arriba, derecha, abajo, izquierda */
+    border-radius: 12px;
+}
+
+.relative-box {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #F2E0C9;
     color: #4A3C31;
 
-    width:auto;
-    height:80px;
+    width: auto;
+    height: auto;
 
     position: relative;
 
@@ -19,58 +70,21 @@ p{
     border-radius: 10px;
 
     margin: 70px;
-
-    padding:25px 40px 0px 40px ;
-    
-
-}
-.sticky-box {
-
-    font-size: 20px;
-    background-color: #5A3E2B;
-    color: #F5E9D6;
-    
-    position: sticky;
-    top: 0;
-
-    height: 100px;
-    line-height: 100px;
-
-    text-align: center;;
-
-    border-radius: 20px;
-
-    margin: 30px;
-
-    z-index: 1;
-
+    padding: 20px 40px;
 }
 
-.fixed-box {
-    position: fixed;
-    top: 200px;
-    left: 50px;
-    background-color: #8A9B68;
-    color: #FFFFFF;;
-    padding: 10px 10px;
-    border-radius: 6px;
-}
-.caja {
-    width: 50%;
-    margin: 80px auto;
-    background-color: #CE9F6A;
-    color: #3C2F25;
-    padding: 40px;
-    border-radius: 12px;
-
+/*Aplicar subrayado a los h2 dentro de div*/
+div h2 {
+    text-decoration: underline;
+    /* Subraya el texto */
 }
 
-button {
+.absolute-box {
     background-color: #8A9B68;
     color: #FFFFFF;
 
-    width:auto;
-    height:auto;
+    width: auto;
+    height: auto;
 
     position: absolute;
 
@@ -81,8 +95,13 @@ button {
 
     padding-inline: 30px;
 
-    right: 450px;
-    top: 248%;
+    right: 400px;
+    top: 105em;
 }
 
-
+button:hover {
+    background-color: #6B7A4F;
+    /* Cambia el color de fondo al pasar el cursor */
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+}

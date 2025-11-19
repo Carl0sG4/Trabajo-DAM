@@ -6,6 +6,13 @@
             "name": "Temperatura1",
             "request": "launch",
             "mainClass": "Temperatura1",
+            "projectName": "Trabajo-DAM_c75a78d0"
+        },
+        {
+            "type": "java",
+            "name": "Temperatura1",
+            "request": "launch",
+            "mainClass": "Temperatura1",
             "projectName": "CGN_6e357279"
         },
         {
