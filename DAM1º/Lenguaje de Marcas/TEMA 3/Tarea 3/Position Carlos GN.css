@@ -95,8 +95,9 @@ div h2 {
 
     padding-inline: 30px;
 
-    right: 400px;
-    top: 105em;
+    right: 510px; 
+    top: 101em;
+    /* Realiza cambios de posición con las propiedades right y top, ya que mi navegador de casa (pantalla 1366x768) me situa el botón centrado, pero en la pantalla del aula (1920x1080) me lo pone descentrado */
 }
 
 button:hover {
@@ -104,4 +105,18 @@ button:hover {
     /* Cambia el color de fondo al pasar el cursor */
     cursor: pointer;
     /* Cambia el cursor al pasar sobre el botón */
+}
+
+.entrega {
+
+    background-color: #cf4e4e;
+    color: #FFFFFF;
+
+    position: fixed;
+
+    bottom: 0%;
+    right: 0%;
+
+    padding: 10px 10px;
+    border-radius: 6px;
 }

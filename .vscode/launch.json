@@ -3,6 +3,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Programa",
+            "request": "launch",
+            "mainClass": "Programa",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
+            "name": "Coche",
+            "request": "launch",
+            "mainClass": "Coche",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
             "name": "Temperatura1",
             "request": "launch",
             "mainClass": "Temperatura1",
