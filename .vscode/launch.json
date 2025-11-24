@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "Trabajo-DAM_c75a78d0"
+        },
+        {
+            "type": "java",
             "name": "Coche",
             "request": "launch",
             "mainClass": "Coche",
