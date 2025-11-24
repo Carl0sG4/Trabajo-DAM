@@ -1,30 +1,42 @@
 header {
 	height: 100px;
-
+	/* R3. Cabezera fija */
+	/* R4. Estética de cabezera */
 	color: #0000ff;
 	background-color: #ffff00;
 
 	border-style: solid;
 	border-color: #ff0000;
 	border-width: 2px;
-
+	/* R5. Flexbox obligatorio en la cabecera */
 	display: flex;
+	/* Contenedor flexible */
 	flex-direction: column;
+
 	justify-content: center;
+	/* Centrar de manera horizontal */
 
 }
 
+/* R4. Estética de cabezera */
 header h3 {
 	display: flex;
+	/* Contenedor flexible */
 	align-items: center;
+	/* Centrar de manera vertical */
 	justify-content: center;
+	/* Centrar de manera horizontal */
 }
 
+/* R6. Barra superior .barra1 invertida y alineada al inicio */
 nav.barra1 {
 	display: flex;
 	flex-direction: row-reverse;
+	/* Columna invertida */
 	justify-content: start;
+	/* Posicionar barra nav al principio */
 	gap: 5px;
+	/* Pequeño espacio entre los enlaces */
 }
 
 nav.barra1 a {
@@ -40,6 +52,8 @@ nav.barra1 a {
 
 }
 
+/* R7. Menú lateral como contenedor flex en columna */
+/* R8. Menú lateral invertido */
 aside {
 	width: 150px;
 	border-color: red;
@@ -49,7 +63,9 @@ aside {
 	margin-top: 20px;
 
 	display: flex;
+	/* Contenedor flexible */
 	flex-direction: column-reverse;
+	/* Columna invertida */
 
 }
 
