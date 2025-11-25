@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GestionInventario",
+            "request": "launch",
+            "mainClass": "GestionInventario",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
+            "name": "gestionInventario",
+            "request": "launch",
+            "mainClass": "gestionInventario",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
