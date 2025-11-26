@@ -27,6 +27,7 @@
 
 ---
 
+<<<<<<< HEAD
 ## 📊 Estadísticas GitHub 🌟
 
 <div align="center">
@@ -39,6 +40,14 @@
 
 <!-- GRÁFICO DE CONTRIBUCIONES -->
 ![GitHub Activity Graph](https://github-readme-activity-graph.cyclic.app/graph?username=Carl0sG4&bg_color=0d1117&color=3b82f6&line=00c8c0&point=1c1b1b&hide_border=true)
+=======
+<div align="center">
+
+## 📊 Actividad Reciente en GitHub 🌟
+
+<!-- GRÁFICO DE CONTRIBUCIONES -->
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=Carl0sG4&theme=react-dark&area=true&hide_border=true" alt="Contribution Graph" width="90%"/>
+>>>>>>> 4093504 (26/11/25-14:21)
 
 </div>
 
@@ -132,4 +141,8 @@
 
 ✨ **Creado con dedicación. 1º DAM (2024-2025)** 🚀
 
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 4093504 (26/11/25-14:21)
