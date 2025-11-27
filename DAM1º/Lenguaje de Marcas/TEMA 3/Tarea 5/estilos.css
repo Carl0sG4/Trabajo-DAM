@@ -1,0 +1,102 @@
+body {
+	margin: 0;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	background-color: #0b0b0b;
+	color: #ffffff;
+}
+
+.pagina {
+	width: 100%;
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"cabecera cabecera"
+		"anuncios articulos";
+}
+
+.cabecera {
+	grid-area: cabecera;
+	background-image: url("img/UT2 - TB banner.jpg");
+	background-size: cover;
+	background-position: center;
+	height: 240px;
+}
+
+.anuncios {
+	grid-area: anuncios;
+	background-color: #c00000;
+	padding: 25px 20px;
+	display: grid;
+	gap: 25px;
+}
+
+.anuncio h2 {
+	margin: 0 0 10px;
+	color: #ffe45c;
+}
+
+.anuncio p {
+	margin: 0;
+	line-height: 1.4;
+}
+
+.articulos {
+	grid-area: articulos;
+	background-color: #117a1f;
+	padding: 25px;
+	display: grid;
+	gap: 25px;
+}
+
+.articulo {
+	border: 2px solid #d9f99d;
+	padding: 20px;
+	background-color: #1d8c2c;
+}
+
+.articulo h2 {
+	margin: 0 0 15px;
+}
+
+.articulo__contenido {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	gap: 20px;
+	align-items: center;
+}
+
+.articulo__contenido img {
+	width: 100%;
+	height: auto;
+	border: 3px solid #ffffff;
+}
+
+.articulo__contenido p {
+	margin: 0;
+	line-height: 1.5;
+}
+
+.articulo--invertido .articulo__contenido {
+	grid-template-columns: 1fr 200px;
+}
+
+.articulo--invertido .articulo__contenido img {
+	order: 2;
+}
+
+@media (max-width: 920px) {
+	.pagina {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"cabecera"
+			"anuncios"
+			"articulos";
+	}
+
+	.articulo__contenido,
+	.articulo--invertido .articulo__contenido {
+		grid-template-columns: 1fr;
+	}
+}
