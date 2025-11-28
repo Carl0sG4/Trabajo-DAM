@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>LM03 – UT03 – Tarea 05 | CSS Grid</title>
-		<link rel="stylesheet" href="estilos.css" />
-	</head>
-	<body>
-		<div class="pagina">
-			<header class="cabecera" aria-label="Mapa de cabecera"></header>
 
-			<section class="anuncios" aria-label="Zona de anuncios">
-				<article class="anuncio">
-					<h2>Anuncio 1</h2>
-					<p>
-						Este es el desarrollo del anuncio 1. Voy a poner varias palabras para
-						que ocupe varias líneas.
-					</p>
-				</article>
-				<article class="anuncio">
-					<h2>Anuncio 2</h2>
-					<p>
-						Este es el desarrollo del anuncio 2. Voy a poner varias palabras para
-						que ocupe varias líneas.
-					</p>
-				</article>
-				<article class="anuncio">
-					<h2>Anuncio 3</h2>
-					<p>
-						Este es el desarrollo del anuncio 3. Voy a poner varias palabras para
-						que ocupe varias líneas.
-					</p>
-				</article>
-			</section>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>LM03_UT03_Tarea_05_CSS Grid</title>
+	<link rel="stylesheet" href="estilos.css" />
+</head>
 
-			<section class="articulos" aria-label="Zona de artículos">
-				<article class="articulo">
-					<h2>Artículo 1</h2>
-					<div class="articulo__contenido">
-						<img
-							src="img/UT2 - TB camion.jpg"
-							alt="Camión de transporte"
-						/>
-						<p>
-							Este es el artículo 1. Voy a poner varias palabras para que ocupe
-							varias líneas. Voy a poner varias palabras para que ocupe varias
-							líneas. Voy a poner varias palabras para que ocupe varias líneas.
-							Este es el final del artículo 1. Voy a poner varias palabras para que
-							ocupe varias líneas.
-						</p>
-					</div>
-				</article>
+<body>
 
-				<article class="articulo articulo--invertido">
-					<h2>Artículo 2</h2>
-					<div class="articulo__contenido">
-						<img
-							src="img/UT2 - TB camion.jpg"
-							alt="Camión cargado"
-						/>
-						<p>
-							Este es el artículo 2. Voy a poner varias palabras para que ocupe
-							varias líneas. Voy a poner varias palabras para que ocupe varias
-							líneas. Este es el final del artículo 2. Voy a poner varias palabras
-							para que ocupe varias líneas.
-						</p>
-					</div>
-				</article>
-			</section>
-		</div>
-	</body>
+	<header class="cabecera"></header>
+
+	<aside class="anuncios">
+		<article id="anuncio1">
+			<h2>Anuncio 1</h2>
+			<p>
+				Este es el desarrollo del anuncio 1. Voy a poner varias palabras para
+				que ocupe varias líneas.
+			</p>
+		</article>
+		<article id="anuncio2">
+			<h2>Anuncio 2</h2>
+			<p>
+				Este es el desarrollo del anuncio 2. Voy a poner varias palabras para
+				que ocupe varias líneas.
+			</p>
+		</article>
+		<article id="anuncio3">
+			<h2>Anuncio 3</h2>
+			<p>
+				Este es el desarrollo del anuncio 3. Voy a poner varias palabras para
+				que ocupe varias líneas.
+			</p>
+		</article>
+	</aside>
+
+	<section class="articulos">
+		<article id="articulo1">
+			<h2>Artículo 1</h2>
+			<div id="contenido1">
+				<img src="UT2 - TB camion.jpg" />
+				<p>
+					Este es el artículo 1. Voy a poner varias palabras para que ocupe varias líneas. Voy a poner varias
+					palabras para que ocupe varias líneas. Voy a poner varias palabras para que ocupe varias líneas. Voy
+					a poner varias palabras para que ocupe varias líneas.
+					<br>
+					<br>
+					Este es el final del artículo 1. Voy a poner varias palabras para que ocupe varias líneas. Voy a
+					poner varias palabras para que ocupe varias líneas. Voy a poner varias palabras para que ocupe
+					varias líneas. Voy a poner varias palabras para que ocupe varias líneas.
+				</p>
+			</div>
+		</article>
+
+		<article id="articulo2">
+			<h2>Artículo 2</h2>
+			<div id	="contenido2">
+				<p>
+					Este es el artículo 2. Voy a poner varias palabras para que ocupe varias líneas. Voy a poner varias
+					palabras para que ocupe varias líneas. Voy a poner varias palabras para que ocupe varias líneas.
+					<br>
+					Este es el final del artículo 1. Voy a poner varias palabras para que ocupe varias líneas. Voy a
+					poner varias palabras para que ocupe varias líneas. Voy a poner varias palabras para que ocupe
+					varias líneas. Voy a poner varias palabras para que ocupe varias líneas.
+				</p>
+				<img src="UT2 - TB camion.jpg" />
+			</div>
+		</article>
+	</section>
+</body>
+
 </html>

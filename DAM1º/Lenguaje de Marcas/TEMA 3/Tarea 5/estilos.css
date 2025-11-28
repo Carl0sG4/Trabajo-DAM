@@ -1,102 +1,109 @@
+/* Reinicio general: elimina márgenes/padding por defecto y asegura el alto completo. */
+html,
 body {
 	margin: 0;
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	background-color: #0b0b0b;
-	color: #ffffff;
+	padding: 0;
+	min-height: 100vh
 }
 
-.pagina {
-	width: 100%;
-	min-height: 100vh;
+body {
+	/* Contenedor principal como cuadrícula: define qué bloque ocupa cada área. */
 	display: grid;
-	grid-template-columns: 320px 1fr;
-	grid-template-rows: auto 1fr;
-	grid-template-areas:
-		"cabecera cabecera"
-		"anuncios articulos";
+    /* Permite ajustar la estructura en la que queremos ver la página */
+    grid-template-areas:
+        "header header header"
+        "aside article article"
+		;
+    
+    grid-template-columns: 1fr 1fr 2fr;
+    /* Altura de las filas: la primera fija y las otras adaptables */
+	grid-template-rows: 200px 1fr;
+
 }
 
 .cabecera {
-	grid-area: cabecera;
-	background-image: url("img/UT2 - TB banner.jpg");
+	grid-area: header;
+	background-image: url("UT2 - TB banner.jpg");
 	background-size: cover;
 	background-position: center;
-	height: 240px;
+	background-repeat: no-repeat;
+	
+	height: 200px;
+    width: auto;
 }
 
 .anuncios {
-	grid-area: anuncios;
-	background-color: #c00000;
-	padding: 25px 20px;
-	display: grid;
-	gap: 25px;
+	grid-area: aside;
+	background-color: #f30a0a;
+	padding: 20px;
+}
+h2 {
+	color: #fbff00;
+	font-family: serif ;
 }
 
-.anuncio h2 {
-	margin: 0 0 10px;
-	color: #ffe45c;
-}
-
-.anuncio p {
-	margin: 0;
-	line-height: 1.4;
+p {
+	color: #ffffff;
+	font-weight: bold;
+	font-family: serif ;
+	font-size: 17px;
 }
 
 .articulos {
-	grid-area: articulos;
-	background-color: #117a1f;
-	padding: 25px;
+	grid-area: article;
+	background-color: #04810e;
+	padding: 30px;
+	/* Flex column: apila los artículos verticalmente conservando su orden. */
+	display: flex;
+	flex-direction: column;
+
+}
+
+#contenido1, #contenido2{
+	border-style: solid;
+	border-width: 2px;
+	padding: 40px;
+	border-color: #fbff00 ;
+
+}
+#articulo1 {
+	margin-bottom: 20px;
+}
+
+#contenido1 p {
+	grid-area: parrafo1;
+}
+#contenido2 p {
+	grid-area: parrafo2;
+}
+
+#contenido1 img {
+	grid-area: imagen1;
+}
+#contenido2 img {
+	grid-area: imagen2;
+}
+
+#contenido1 {
 	display: grid;
-	gap: 25px;
+	grid-template-areas:
+		"imagen1 parrafo1 parrafo1 "
+		"imagen1 parrafo1 parrafo1"
+		"imagen1 parrafo1 parrafo1"
+	;
+	grid-template-columns: 1fr 1fr 2fr;
+	grid-gap: 20px;
+
 }
 
-.articulo {
-	border: 2px solid #d9f99d;
-	padding: 20px;
-	background-color: #1d8c2c;
-}
-
-.articulo h2 {
-	margin: 0 0 15px;
-}
-
-.articulo__contenido {
+#contenido2 {
 	display: grid;
-	grid-template-columns: 200px 1fr;
-	gap: 20px;
-	align-items: center;
-}
+	grid-template-areas:
+		"parrafo2 parrafo2 imagen2 "
+		"parrafo2 parrafo2 imagen2"
+		"parrafo2 parrafo2 imagen2"
+	;
+	grid-template-columns: 2fr 1fr 1fr;
 
-.articulo__contenido img {
-	width: 100%;
-	height: auto;
-	border: 3px solid #ffffff;
-}
-
-.articulo__contenido p {
-	margin: 0;
-	line-height: 1.5;
-}
-
-.articulo--invertido .articulo__contenido {
-	grid-template-columns: 1fr 200px;
-}
-
-.articulo--invertido .articulo__contenido img {
-	order: 2;
-}
-
-@media (max-width: 920px) {
-	.pagina {
-		grid-template-columns: 1fr;
-		grid-template-areas:
-			"cabecera"
-			"anuncios"
-			"articulos";
-	}
-
-	.articulo__contenido,
-	.articulo--invertido .articulo__contenido {
-		grid-template-columns: 1fr;
-	}
+	grid-gap: 20px;
 }
