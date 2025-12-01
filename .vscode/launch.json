@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App2",
+            "request": "launch",
+            "mainClass": "App2",
+            "projectName": "Trabajo-DAM_c75a78d0"
+        },
+        {
+            "type": "java",
             "name": "GestionInventario",
             "request": "launch",
             "mainClass": "GestionInventario",
