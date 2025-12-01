@@ -41,7 +41,7 @@ public class App {
      * Presenta por pantalla las opciones disponibles del menú principal.
      */
     public static void menu () {
-        System.out.println("\nMenú UT2Tarea2");
+        System.out.println("\nMenú UT4Tarea2");
         System.out.println("1. Conversión entre primitivos y clases envoltorio");
         System.out.println("2. Uso de Constantes MIN_VALUE y MAX_VALUE");
         System.out.println("3. Conversiones a y desde Cadenas");
