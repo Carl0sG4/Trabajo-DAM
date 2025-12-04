@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * @author Carlos Guaraca Nagua
- * @since 29/11/25
+ * @since 29/11/25 - 11:51
  * 
  */
 public class App {

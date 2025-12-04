@@ -1,6 +1,11 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Carlos Guaraca Nagua
+ * @since 04/12/25 - 11:53
+ * 
+ */
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -45,7 +50,7 @@ public class App {
                 System.out.println("Error: " + e.getMessage());
             }
 
-        } while (opcion != 8);
+        } while (opcion != 7);
         sc.close();
     }
 
@@ -59,7 +64,7 @@ public class App {
         System.out.println("2. Redondear número entero");
         System.out.println("3. Elevar número a una potencia");
         System.out.println("4. Calcular raíz cuadrada");
-        System.out.println("5. Calcular sena de ángulo");
+        System.out.println("5. Calcular seno de ángulo");
         System.out.println("6. Truncar número");
         System.out.println("7. Finalizar Programa");
         System.out.print("Selecciones una opción: ");
@@ -81,7 +86,7 @@ public class App {
     public static void redondearNumero(Scanner sc) {
         try {
             System.out.println("Inserta un número decimál para poder redondearlo: ");
-            Double decimal = sc.nextDouble();
+            double decimal = sc.nextDouble();
 
             long redondeado = Math.round(decimal);
             System.out.println("Número redondeado: " + redondeado);
@@ -93,11 +98,11 @@ public class App {
 
     public static void elevarPotencia(Scanner sc) {
         try {
-            System.out.println("Inserta un número entero para poder elevarlo: ");
-            int base = sc.nextInt();
+            System.out.println("Inserta un número decimal para poder elevarlo: ");
+            double base = sc.nextDouble();
 
             System.out.println("A qué número desea elevarlo: ");
-            int exponente = sc.nextInt();
+            double exponente = sc.nextDouble();
 
             if (base == 0 && exponente <= 0) {
                 throw new IllegalArgumentException(
@@ -117,7 +122,7 @@ public class App {
     public static void calcularRaiz(Scanner sc) {
         try {
             System.out.println("Inserta un número decimal para poder calcular la raíz cuadrada: ");
-            Double decimal = sc.nextDouble();
+            double decimal = sc.nextDouble();
 
             if (decimal < 0) {
                 throw new IllegalArgumentException("No es posible calcular la raíz cuadrada de un número negativo.");
@@ -136,7 +141,7 @@ public class App {
     public static void calcularSeno(Scanner sc) {
         try {
             System.out.println("Inserta un ángulo en decimal para poder calcular su seno (radianes): ");
-            Double angulo = sc.nextDouble();
+            double angulo = sc.nextDouble();
 
             double seno = Math.sin(angulo);
             System.out.println("Seno: " + seno);
