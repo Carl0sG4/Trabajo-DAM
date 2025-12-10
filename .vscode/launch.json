@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UT4Tarea3",
+            "request": "launch",
+            "mainClass": "UT4Tarea3",
+            "projectName": "CGN_6e357279"
+        },
+        {
+            "type": "java",
             "name": "App2",
             "request": "launch",
             "mainClass": "App2",
