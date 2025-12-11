@@ -156,11 +156,14 @@ public class UT4Tarea4 {
             System.out.println("Inserta un número decimal para poder truncarlo: ");
             double decimal = sc.nextDouble();
 
-            double redondeaAbajo = Math.floor(decimal);
-            double redondeaArriba = Math.ceil(decimal);
-
-            System.out.println("Truncar número para positivos: " + redondeaAbajo);
-            System.out.println("Truncar número para negativos: " + redondeaArriba);
+            double truncado;
+            if (decimal >= 0) {
+                truncado = Math.floor(decimal);
+                System.out.println("Número truncado (usando floor): " + truncado);
+            } else {
+                truncado = Math.ceil(decimal);
+                System.out.println("Número truncado (usando ceil): " + truncado);
+            }
         } catch (InputMismatchException e) {
             System.out.println("Error: introduce un número decimal válido.");
             sc.nextLine();
