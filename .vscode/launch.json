@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UT4Tarea7",
+            "request": "launch",
+            "mainClass": "UT4Tarea7",
+            "projectName": "Trabajo-DAM_360a1036"
+        },
+        {
+            "type": "java",
+            "name": "UT4Tarea6",
+            "request": "launch",
+            "mainClass": "UT4Tarea6",
+            "projectName": "Trabajo-DAM_360a1036"
+        },
+        {
+            "type": "java",
             "name": "UT4Tarea3",
             "request": "launch",
             "mainClass": "UT4Tarea3",

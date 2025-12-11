@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @since 09/12/25 - 13:27
  * 
  */
-public class App {
+public class UT4Tarea5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
