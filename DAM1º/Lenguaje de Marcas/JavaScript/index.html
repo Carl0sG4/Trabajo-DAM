@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Ejercicios JS</title>
+    <style>
+        :root {
+            --bg-body: #1e1e2e;
+            --bg-card: #282a36;
+            --text-main: #f8f8f2;
+            --accent: #bd93f9; /* Morado estilo Drácula */
+            --code-bg: #15151a;
+            --btn-bg: #50fa7b;
+            --btn-text: #282a36;
+            --output-bg: #44475a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--output-bg);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--accent);
+        }
+
+        h2.section-title {
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Grid Layout para las tarjetas */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        /* Diseño de la Tarjeta */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #8be9fd; /* Cyan */
+        }
+
+        /* Bloque de Código Visual */
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #444;
+            font-size: 0.9rem;
+            color: #f1fa8c; /* Amarillo suave para código */
+        }
+
+        /* Botón de Ejecución */
+        button {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: filter 0.2s;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Consola Simulada en Pantalla */
+        .console-output {
+            margin-top: 15px;
+            background-color: var(--output-bg);
+            color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            border-left: 4px solid var(--accent);
+            display: none; /* Oculto por defecto */
+        }
+
+        .console-output.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .console-label {
+            font-size: 0.8rem;
+            color: #bbb;
+            display: block;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 2px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ejercicios de JavaScript</h1>
+        <p>Visualización interactiva de código y lógica</p>
+    </header>
+
+    <h2 class="section-title">Archivo 1: Entrada y Salida</h2>
+    <div class="grid-container">
+        
+        <div class="card">
+            <h3>1. Mostrar Datos Personales</h3>
+            <p>Solicita datos al usuario y los concatena en una frase.</p>
+            
+            <pre><code>// Código Original:
+let nombre = prompt("¿Cuál es tu nombre?");
+let apellidos = prompt("¿Tus apellidos?");
+let ciudad = prompt("¿Tu ciudad?");
+
+console.log("Te llamas " + nombre + " " 
++ apellidos + " y vives en " + ciudad);</code></pre>
+
+            <button onclick="ejecutarEjercicio1_1()">▶ Ejecutar Código</button>
+            <div id="output-1-1" class="console-output"></div>
+        </div>
+
+        <div class="card">
+            <h3>2. Reutilizar Variables (Tipos)</h3>
+            <p>Transformación de tipos de datos (Casting).</p>
+            
+            <pre><code>// Código Original:
+let edad = 32;
+edad = Number(edad);
+edad = String(edad);
+edad = Boolean(edad);
+
+console.log(typeof edad); 
+// Muestra el último tipo asignado</code></pre>
+
+            <button onclick="ejecutarEjercicio1_6()">▶ Ejecutar Código</button>
+            <div id="output-1-6" class="console-output"></div>
+        </div>
+    </div>
+
+
+    <h2 class="section-title">Archivo 2: Condicionales y Bucles</h2>
+    <div class="grid-container">
+
+        <div class="card">
+            <h3>1. Clasificación por Edad</h3>
+            <p>Uso de if/else para categorizar una entrada numérica.</p>
+            
+            <pre><code>// Código Original:
+let edad = Number(prompt("Tu edad: "));
+
+if (edad <=12) console.log("Niño");
+else if (edad <=17) console.log("Adolescente");
+else if (edad <= 64) console.log("Adulto");
+else console.log("Jubilado");</code></pre>
+
+            <button onclick="ejecutarEjercicio2_1()">▶ Ejecutar Código</button>
+            <div id="output-2-1" class="console-output"></div>
+        </div>
+
+        <div class="card">
+            <h3>2. Contador Ascendente/Descendente</h3>
+            <p>Bucle For que se adapta según si el número es positivo o negativo.</p>
+            
+            <pre><code>// Código Original:
+let numero = Number(prompt("Un número: "));
+
+if (numero > 0) {
+    for(let i = 1; i <= numero; i++) {
+        console.log(i);
+    }
+} else {
+    for(let i = 0; i >= numero; i--) {
+        console.log(i);
+    }
+}</code></pre>
+
+            <button onclick="ejecutarEjercicio2_3()">▶ Ejecutar Código</button>
+            <div id="output-2-3" class="console-output"></div>
+        </div>
+    </div>
+
+
+    <h2 class="section-title">Archivo 3: Funciones</h2>
+    <div class="grid-container">
+
+        <div class="card">
+            <h3>1. Convertir Temperatura</h3>
+            <p>Funciones para convertir entre Celsius y Fahrenheit.</p>
+            
+            <pre><code>// Funciones:
+function fahrenheitACelsius(f) { ... }
+function celsiusAFahrenheit(c) { ... }
+
+let temp = Number(prompt("Temperatura: "));
+let op = prompt("1. A Fahrenheit / 2. A Celsius");
+
+if(op == 1) celsiusAFahrenheit(temp);
+else if (op == 2) fahrenheitACelsius(temp);</code></pre>
+
+            <button onclick="ejecutarEjercicio3_4()">▶ Ejecutar Código</button>
+            <div id="output-3-4" class="console-output"></div>
+        </div>
+
+        <div class="card">
+            <h3>2. Encadenar Funciones (Ejemplo)</h3>
+            <p><em>(El código original estaba vacío, aquí un ejemplo práctico).</em></p>
+            
+            <pre><code>function doble(n) { return n * 2; }
+function mostrar(n) { return "El doble es " + n; }
+
+// Encadenamiento:
+let resultado = mostrar(doble(5));
+console.log(resultado);</code></pre>
+
+            <button onclick="ejecutarEjercicio3_8()">▶ Ejecutar Código</button>
+            <div id="output-3-8" class="console-output"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Función auxiliar para imprimir en las cajas grises en lugar de la consola real
+        function logToScreen(id, mensaje, limpiar = true) {
+            const div = document.getElementById(id);
+            div.classList.add('visible');
+            if (limpiar) {
+                div.innerHTML = `<span class="console-label">Resultado:</span> ${mensaje}`;
+            } else {
+                div.innerHTML += `<br>${mensaje}`;
+            }
+        }
+
+        // --- EJERCICIO 1.1 ---
+        function ejecutarEjercicio1_1() {
+            let nombre = prompt("¿Cuál es tu nombre?");
+            if(nombre === null) return; // Si cancela
+            let apellidos = prompt("¿Cuáles son tus apellidos?");
+            let ciudad = prompt("¿Cuál es tu ciudad?");
+
+            let resultado = "Te llamas " + nombre + " " + apellidos + " y vives en " + ciudad;
+            logToScreen('output-1-1', resultado);
+        }
+
+        // --- EJERCICIO 1.6 ---
+        function ejecutarEjercicio1_6() {
+            let edad = 32;
+            let log = "Valor inicial: 32 (Number)<br>";
+            
+            edad = Number(edad); // Sigue siendo number
+            
+            edad = String(edad);
+            log += "String(edad) -> " + typeof edad + " ('32')<br>";
+            
+            edad = Boolean(edad);
+            log += "Boolean(edad) -> " + typeof edad + " (true)<br>";
+
+            log += "<strong>Final console.log(typeof edad): " + typeof edad + "</strong>";
+            
+            logToScreen('output-1-6', log);
+        }
+
+        // --- EJERCICIO 2.1 ---
+        function ejecutarEjercicio2_1() {
+            let edad = Number(prompt("Introduce tu edad: "));
+            let mensaje = "";
+
+            if (edad <= 12) mensaje = "Niño";
+            else if (edad <= 17) mensaje = "Adolescente";
+            else if (edad <= 64) mensaje = "Adulto";
+            else mensaje = "Jubilado";
+
+            logToScreen('output-2-1', "Clasificación: " + mensaje);
+        }
+
+        // --- EJERCICIO 2.3 ---
+        function ejecutarEjercicio2_3() {
+            let numero = Number(prompt("Introduce un número para contar hasta él: "));
+            let resultado = "";
+
+            // Nota: Corregí el bug del código original (numero = 0) por (numero === 0)
+            if (numero === 0) {
+                resultado = "0";
+            } else if (numero > 0) {
+                for(let i = 1; i <= numero; i++) {
+                    resultado += i + ", ";
+                }
+            } else {
+                for(let i = 0; i >= numero; i--) {
+                    resultado += i + ", ";
+                }
+            }
+            // Quitamos la última coma
+            logToScreen('output-2-3', resultado.slice(0, -2)); 
+        }
+
+        // --- EJERCICIO 3.4 ---
+        // Definimos las funciones dentro del scope global o de la función
+        function fahrenheitACelsius(f) {
+            return (f - 32) * 5/9;
+        }
+
+        function celsiusAFahrenheit(c) {
+            return (c * 9/5) + 32;
+        }
+
+        function ejecutarEjercicio3_4() {
+            let temperatura = Number(prompt("Introduce una temperatura numérica: "));
+            let opcion = Number(prompt("1. De Celsius a F (Introduce 1)\n2. De Fahrenheit a C (Introduce 2)"));
+            
+            let res = "";
+            if(opcion == 1){
+                let f = celsiusAFahrenheit(temperatura);
+                res = "Tu temperatura " + temperatura + "°C son " + f.toFixed(2) + "°F";
+            } else if (opcion == 2) {
+                let c = fahrenheitACelsius(temperatura);
+                res = "Tu temperatura " + temperatura + "°F son " + c.toFixed(2) + "°C";
+            } else {
+                res = "Opción no válida";
+            }
+            
+            logToScreen('output-3-4', res);
+        }
+
+        // --- EJERCICIO 3.8 (Extra) ---
+        function ejecutarEjercicio3_8() {
+            function doble(n) { return n * 2; }
+            function mostrar(texto) { return "El resultado calculado es: " + texto; }
+            
+            // Simulamos encadenamiento
+            let entrada = 5;
+            let final = mostrar(doble(entrada));
+            
+            logToScreen('output-3-8', "Entrada: 5 <br> " + final);
+        }
+
+    </script>
+</body>
+</html>
