@@ -263,16 +263,6 @@ console.log(resultado);</code></pre>
     </div>
 
     <script>
-        // Función auxiliar para imprimir en las cajas grises en lugar de la consola real
-        function logToScreen(id, mensaje, limpiar = true) {
-            const div = document.getElementById(id);
-            div.classList.add('visible');
-            if (limpiar) {
-                div.innerHTML = `<span class="console-label">Resultado:</span> ${mensaje}`;
-            } else {
-                div.innerHTML += `<br>${mensaje}`;
-            }
-        }
 
         // --- EJERCICIO 1.1 ---
         function ejecutarEjercicio1_1() {
