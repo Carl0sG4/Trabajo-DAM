@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Kanban: Gestión Visual del Flujo</title>
+
+    <!-- Reveal.js & Plugins -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css" id="theme">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --kanban-blue: #29b6f6;
+            --kanban-yellow: #fdd835;
+            --kanban-red: #ef5350;
+            --kanban-green: #66bb6a;
+            --dark-bg: #1e1e1e;
+            --gemini-purple: #c58af9;
+        }
+        
+        /* Typography overrides */
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .reveal h1 { background: -webkit-linear-gradient(45deg, var(--kanban-blue), var(--kanban-green)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .text-accent { color: var(--kanban-blue); }
+        .text-warning { color: var(--kanban-yellow); }
+        
+        /* Image Placeholders */
+        .img-placeholder {
+            width: 100%;
+            height: 300px;
+            border: 2px dashed #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: #aaa;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+        
+        /* CSS Kanban Board */
+        .board-container { display: flex; gap: 15px; justify-content: center; margin-top: 20px; font-size: 0.5em; }
+        .board-col { background: #2d2d2d; width: 30%; padding: 10px; border-radius: 8px; border-top: 5px solid #555; }
+        .board-col.todo { border-color: var(--kanban-blue); }
+        .board-col.doing { border-color: var(--kanban-red); }
+        .board-col.done { border-color: var(--kanban-green); }
+        .card { background: #444; padding: 15px; margin-bottom: 10px; border-radius: 4px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.3); position: relative; }
+        .card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--kanban-yellow); border-radius: 4px 0 0 4px; }
+        .tag { font-size: 0.8em; background: #111; padding: 2px 6px; border-radius: 4px; color: #aaa; }
+        
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        /* Cards for principles */
+        .feature-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; border-left: 4px solid var(--kanban-blue); text-align: left; }
+        
+        /* Quote */
+        .quote-box { font-style: italic; border-left: 5px solid var(--kanban-yellow); padding-left: 20px; color: #ddd; background: rgba(255, 235, 59, 0.1); padding: 30px; border-radius: 0 10px 10px 0;}
+
+        /* AI Demo Styles */
+        .ai-input-container {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .ai-input {
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #555;
+            background: #222;
+            color: white;
+            font-size: 0.8em;
+            width: 60%;
+        }
+        .ai-btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(45deg, var(--gemini-purple), #8e24aa);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ai-btn:hover { transform: scale(1.05); }
+        .ai-btn:disabled { opacity: 0.7; cursor: wait; }
+        
+        /* Contenedor visual tipo Columna Kanban */
+        .backlog-column {
+            background: #252526;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto 0;
+            width: 100%;
+            border-top: 5px solid var(--gemini-purple);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-align: left;
+            display: none;
+        }
+        .backlog-header {
+            color: #ddd;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #ai-results {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gemini-purple) #333;
+            
+            /* --- CAMBIO CRÍTICO: CSS GRID EN LUGAR DE FLEX --- */
+            /* Esto fuerza estrictamente 3 columnas iguales */
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 20px;
+            align-items: start; /* Alinea arriba para que no se estiren raro */
+        }
+        
+        #ai-results::-webkit-scrollbar { width: 8px; }
+        #ai-results::-webkit-scrollbar-track { background: #333; border-radius: 4px; }
+        #ai-results::-webkit-scrollbar-thumb { background-color: var(--gemini-purple); border-radius: 4px; }
+
+        .ai-card {
+            background: #3c3c3c;
+            padding: 0;
+            border-radius: 6px;
+            border-left: 5px solid #aaa; 
+            
+            opacity: 0;
+            animation: slideInRight 0.5s ease-out forwards;
+            
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            
+            /* Asegurar que ocupan el 100% de su celda del grid */
+            width: 100%; 
+            min-height: 180px; /* Altura mínima uniforme */
+        }
+        
+        .ai-card-header {
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ai-card-body {
+            padding: 15px;
+            flex-grow: 1;
+        }
+        
+        .ai-card-footer {
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); transition: all 0.3s;}
+        
+        .ai-card h5 { margin: 0; color: white; font-size: 1.0em; font-weight: 600; line-height: 1.2; text-align: left; }
+        .ticket-id { font-family: 'Courier New', monospace; color: #888; font-size: 0.8em; letter-spacing: 1px; }
+        
+        .ai-card p { font-size: 0.85em; color: #ccc; margin: 0; line-height: 1.4; text-align: left; }
+        
+        .ai-tag { background: #222; color: #aaa; font-size: 0.7em; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; font-weight: bold; border: 1px solid #555; display: inline-flex; align-items: center; gap: 5px;}
+        
+        .priority-badge { font-size: 0.7em; padding: 3px 8px; border-radius: 10px; color: #fff; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;}
+        .priority-badge.alta { background: rgba(239, 83, 80, 0.2); color: #ef5350; border: 1px solid rgba(239, 83, 80, 0.5);}
+        .priority-badge.media { background: rgba(253, 216, 53, 0.2); color: #fdd835; border: 1px solid rgba(253, 216, 53, 0.5);}
+        .priority-badge.baja { background: rgba(102, 187, 106, 0.2); color: #66bb6a; border: 1px solid rgba(102, 187, 106, 0.5);}
+
+        .ai-card.alta { border-left-color: #ef5350; }
+        .ai-card.media { border-left-color: #fdd835; }
+        .ai-card.baja { border-left-color: #66bb6a; }
+        
+        @keyframes slideInRight { 
+            from { opacity: 0; transform: translateX(20px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--gemini-purple);
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+
+        <!-- 1. PORTADA -->
+        <section data-background-gradient="linear-gradient(to bottom right, #1a1a1a, #000000)">
+            <div style="font-size: 4em; margin-bottom: 20px;">🌊</div>
+            <h1>KANBAN</h1>
+            <h3>Gestión Visual del Flujo</h3>
+            <p style="color: #888; letter-spacing: 2px; text-transform: uppercase; font-size: 0.6em; margin-top: 50px;">
+                Evolución · Flujo · Entrega
+            </p>
+        </section>
+
+        <!-- 2. INTRODUCCIÓN -->
+        <section>
+            <h2>La Paradoja de la Eficiencia</h2>
+            <div class="grid-2">
+                <div style="text-align: left;">
+                    <p class="fragment fade-up"><i class="fas fa-times-circle" style="color: var(--kanban-red);"></i> <strong>Estar ocupado</strong> ≠ Ser productivo.</p>
+                    <p class="fragment fade-up"><i class="fas fa-brain" style="color: var(--kanban-blue);"></i> <strong>Context Switching:</strong> El cerebro pierde el 20-40% de capacidad al alternar tareas.</p>
+                    <p class="fragment fade-up" style="margin-top: 30px; font-size: 1.2em; font-weight: bold; color: var(--kanban-green);">
+                        Objetivo: Dejar de empezar, comenzar a terminar.
+                    </p>
+                </div>
+                <div>
+                    <!-- Espacio para Imagen -->
+                    <div class="img-placeholder">
+                        <i class="fas fa-users-slash fa-3x"></i>
+                        <br>[Imagen sugerida: Oficina caótica o persona haciendo malabares]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ORIGEN Y DEFINICIÓN -->
+        <section>
+            <h3>El Origen: Toyota & TPS</h3>
+            <div class="grid-2">
+                <div class="feature-box fragment">
+                    <h4><i class="fas fa-arrow-right"></i> PUSH (Empuje)</h4>
+                    <small>Se fabrica basado en predicciones. Genera inventario acumulado y desperdicio.</small>
+                </div>
+                <div class="feature-box fragment" style="border-left-color: var(--kanban-green);">
+                    <h4><i class="fas fa-magnet"></i> PULL (Arrastre)</h4>
+                    <small>Se fabrica solo bajo demanda real. Kanban es un sistema Pull. Flujo continuo.</small>
+                </div>
+            </div>
+            <div class="img-placeholder" style="height: 200px; margin-top: 30px;">
+                <i class="fas fa-industry fa-2x"></i>
+                <br>[Imagen sugerida: Línea de montaje Toyota años 50 o Taiichi Ohno]
+            </div>
+        </section>
+
+        <!-- 4. LOS 4 PRINCIPIOS -->
+        <section>
+            <h3>Gestión del Cambio Humano</h3>
+            <p style="font-size: 0.6em; color: #aaa;">Sin revoluciones traumáticas</p>
+            <div class="grid-4" style="font-size: 0.6em;">
+                <div class="feature-box fragment zoom-in">
+                    <i class="fas fa-map-marker-alt text-accent"></i>
+                    <br><strong>Empieza con lo que haces ahora</strong>
+                    <br>Mapea la realidad, no la fantasía.
+                </div>
+                <div class="feature-box fragment zoom-in">
+                    <i class="fas fa-chart-line text-accent"></i>
+                    <br><strong>Cambios Evolutivos</strong>
+                    <br>Mejora continua (Kaizen), paso a paso.
+                </div>
+                <div class="feature-box fragment zoom-in">
+                    <i class="fas fa-user-tie text-accent"></i>
+                    <br><strong>Respeta Roles</strong>
+                    <br>Nadie pierde su cargo. Reduce el miedo.
+                </div>
+                <div class="feature-box fragment zoom-in">
+                    <i class="fas fa-lightbulb text-accent"></i>
+                    <br><strong>Liderazgo total</strong>
+                    <br>Cualquiera puede sugerir mejoras.
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. EL TABLERO VISUAL -->
+        <section>
+            <h3>Visualizar el Trabajo Invisible</h3>
+            <div class="board-container">
+                <div class="board-col todo">
+                    <div style="font-weight: bold; margin-bottom: 10px;">POR HACER</div>
+                    <div class="card">Análisis de Mercado<br><span class="tag">Estrategia</span></div>
+                    <div class="card">Diseño UX<br><span class="tag">Diseño</span></div>
+                    <div class="card">Entrevistas<br><span class="tag">Research</span></div>
+                </div>
+                <div class="board-col doing">
+                    <div style="font-weight: bold; margin-bottom: 10px;">EN CURSO (WIP 2)</div>
+                    <div class="card" style="border-left: 4px solid var(--kanban-red);">Base de Datos<br><span class="tag">Backend</span> <i class="fas fa-exclamation-circle text-warning"></i></div>
+                    <div class="card">API Rest<br><span class="tag">Backend</span></div>
+                </div>
+                <div class="board-col done">
+                    <div style="font-weight: bold; margin-bottom: 10px;">HECHO</div>
+                    <div class="card" style="opacity: 0.6; text-decoration: line-through;">Login<br><span class="tag">Frontend</span></div>
+                    <div class="card" style="opacity: 0.6; text-decoration: line-through;">Config Server<br><span class="tag">DevOps</span></div>
+                </div>
+            </div>
+            <p class="fragment" style="font-size: 0.6em; margin-top: 20px;">
+                <i class="fas fa-eye text-accent"></i> <strong>Radiador de Información:</strong> Elimina reuniones de estado.
+            </p>
+        </section>
+
+        <!-- 6. WIP -->
+        <section>
+            <h2 class="text-warning"><i class="fas fa-hand-paper"></i> Límites WIP</h2>
+            <h4>(Work In Progress)</h4>
+            
+            <div class="grid-2">
+                <div style="font-size: 0.7em; text-align: left;">
+                    <p><strong>Ley de Little:</strong><br>
+                    <span style="font-size: 1.5em;">WIP <i class="fas fa-arrow-down text-accent"></i> = Speed <i class="fas fa-arrow-up text-accent"></i></span></p>
+                    <hr>
+                    <p class="fragment">Los límites son <strong>restricciones capacitantes</strong>:</p>
+                    <ul class="fragment">
+                        <li>Fuerzan la colaboración.</li>
+                        <li>Exponen bloqueos inmediatamente.</li>
+                        <li>Evitan la multitarea dañina.</li>
+                    </ul>
+                </div>
+                <div class="quote-box fragment">
+                    "Si todo es urgente, nada es importante. Si todo está empezado, nada está terminado."
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. GESTIÓN DEL FLUJO -->
+        <section>
+            <h3>Métricas de Flujo</h3>
+            <p style="font-size: 0.7em;">Medimos para mejorar, no para juzgar.</p>
+            
+            <div style="position: relative; margin-top: 40px; background: #333; height: 100px; border-radius: 50px; display: flex; align-items: center; padding: 0 20px;">
+                <!-- Timeline visual -->
+                <div class="fragment fade-right" style="position: absolute; left: 10%; top: -40px; color: var(--kanban-blue);">Pedido</div>
+                <div class="fragment fade-right" style="position: absolute; left: 30%; top: -40px; color: var(--kanban-yellow);">Inicio</div>
+                <div class="fragment fade-right" style="position: absolute; right: 10%; top: -40px; color: var(--kanban-green);">Entrega</div>
+                
+                <div style="width: 100%; height: 4px; background: #666; position: relative;">
+                    <!-- Lead Time Bar -->
+                    <div class="fragment" style="position: absolute; left: 10%; right: 10%; height: 20px; background: rgba(41, 182, 246, 0.3); top: 10px; border-radius: 10px;">
+                        <span style="position: absolute; bottom: -25px; left: 50%; font-size: 0.5em; color: var(--kanban-blue);">LEAD TIME (Valor Cliente)</span>
+                    </div>
+                     <!-- Cycle Time Bar -->
+                     <div class="fragment" style="position: absolute; left: 30%; right: 10%; height: 20px; background: rgba(102, 187, 106, 0.5); top: 35px; border-radius: 10px;">
+                        <span style="position: absolute; bottom: -25px; left: 50%; font-size: 0.5em; color: var(--kanban-green);">CYCLE TIME (Capacidad Equipo)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="fragment" style="margin-top: 60px; font-size: 0.6em;">
+                <i class="fas fa-search"></i> <strong>Teoría de Restricciones:</strong> Kanban ayuda a encontrar el "Cuello de Botella".
+            </p>
+        </section>
+
+        <!-- 8. SCRUM VS KANBAN -->
+        <section>
+            <h3>Scrum vs. Kanban</h3>
+            <table style="font-size: 0.6em; width: 100%; border-collapse: collapse;">
+                <thead style="border-bottom: 2px solid #555;">
+                    <tr>
+                        <th>Característica</th>
+                        <th style="color: var(--kanban-blue);">Scrum</th>
+                        <th style="color: var(--kanban-green);">Kanban</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="fragment">
+                        <td><strong>Ritmo</strong></td>
+                        <td>Iteraciones fijas (Sprints)</td>
+                        <td>Flujo Continuo</td>
+                    </tr>
+                    <tr class="fragment">
+                        <td><strong>Roles</strong></td>
+                        <td>Prescriptivo (PO, Master...)</td>
+                        <td>Agnóstico (Los que tengas)</td>
+                    </tr>
+                    <tr class="fragment">
+                        <td><strong>Cambios</strong></td>
+                        <td>Bloqueados durante el Sprint</td>
+                        <td>Permitidos si hay capacidad (WIP)</td>
+                    </tr>
+                    <tr class="fragment">
+                        <td><strong>Ideal para</strong></td>
+                        <td>Desarrollo de Producto</td>
+                        <td>Soporte, Mantenimiento, Flujo continuo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- ✨ 9. DEMO INTERACTIVA CON GEMINI AI -->
+        <section>
+            <h3 style="background: -webkit-linear-gradient(45deg, #c58af9, #fdd835); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                ✨ Asistente de Refinamiento con IA
+            </h3>
+            <p style="font-size: 0.6em;">Convierte Ideas Vagas en Tickets Kanban Listos para el Flujo</p>
+            
+            <div class="ai-input-container">
+                <input type="text" id="ai-task-input" class="ai-input" placeholder="Ej: Lanzar campaña de Black Friday...">
+                <button onclick="generateKanbanCards()" class="ai-btn" id="ai-btn">
+                    <i class="fas fa-magic"></i> Refinar
+                </button>
+            </div>
+            
+            <div id="loading" class="loading-spinner"></div>
+            
+            <!-- Contenedor visual tipo columna de Backlog -->
+            <div id="backlog-container" class="backlog-column">
+                <div class="backlog-header">
+                    <span><i class="fas fa-list-ul"></i> Backlog / Ideas</span>
+                    <span id="item-count" style="background: #444; padding: 2px 6px; border-radius: 10px; font-size: 0.9em;">0 items</span>
+                </div>
+                <div id="ai-results">
+                    <!-- Cards will appear here -->
+                </div>
+            </div>
+            
+            <div id="initial-msg" style="color: #666; font-size: 0.6em; margin-top: 50px;">
+                <i class="fas fa-arrow-up"></i> Escribe una tarea arriba para llenar el Backlog.
+            </div>
+        </section>
+
+        <!-- 10. BENEFICIOS -->
+        <section>
+            <h3>Beneficios Tangibles</h3>
+            <div class="grid-2">
+                <div class="img-placeholder">
+                    <i class="fas fa-tachometer-alt fa-3x"></i>
+                    <br>[Imagen sugerida: Tablero limpio o equipo feliz]
+                </div>
+                <div style="text-align: left; font-size: 0.7em;">
+                    <ul>
+                        <li class="fragment" style="margin-bottom: 20px;">
+                            <strong class="text-accent">Transparencia Radical:</strong>
+                            <br>Los problemas no se pueden esconder.
+                        </li>
+                        <li class="fragment" style="margin-bottom: 20px;">
+                            <strong class="text-accent">Ritmo Sostenible:</strong>
+                            <br>Evita el "burnout" respetando la capacidad real.
+                        </li>
+                        <li class="fragment">
+                            <strong class="text-accent">Flexibilidad de Negocio:</strong>
+                            <br>Reprioriza hasta el último segundo.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. CIERRE -->
+        <section data-background-gradient="linear-gradient(to top right, #000000, #1a1a1a)">
+            <h1 class="text-accent">¿Preguntas?</h1>
+            <p>La clave no es correr más, sino tropezar menos.</p>
+            
+            <div style="margin-top: 50px; font-size: 0.6em; color: #666;">
+                <i class="fas fa-envelope"></i> tu.email@empresa.com <br>
+                <i class="fab fa-linkedin"></i> linkedin.com/in/tu-perfil
+            </div>
+            
+            <div class="fragment fade-in" style="margin-top: 30px; border: 1px solid var(--kanban-yellow); padding: 10px; display: inline-block; border-radius: 5px; color: var(--kanban-yellow);">
+                <i class="fas fa-lightbulb"></i> Tip: Empieza visualizando tu propio trabajo hoy.
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- Reveal.js Init -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        transition: 'convex', // Efecto 3D suave
+        controls: true,
+        progress: true,
+        center: true,
+        display: 'block'
+    });
+
+    // Gemini API Logic
+    const apiKey = "AIzaSyAlQZ6CFpZ3QxX9fmkMU7I2HhN5AGsRcYk"; // Will be injected at runtime
+    
+    // Exponential backoff retry function
+    async function fetchWithRetry(url, options) {
+        const delays = [1000, 2000, 4000, 8000, 16000];
+        let lastError;
+
+        for (let i = 0; i < delays.length; i++) {
+            try {
+                const response = await fetch(url, options);
+                if (response.ok) {
+                    return response;
+                }
+                // If not OK, throw to catch block to trigger retry logic
+                throw new Error(`HTTP Error: ${response.status}`); 
+            } catch (error) {
+                lastError = error;
+                if (i === delays.length - 1) break; // Don't wait after last attempt
+                await new Promise(resolve => setTimeout(resolve, delays[i]));
+            }
+        }
+        throw lastError;
+    }
+
+    async function generateKanbanCards() {
+        const input = document.getElementById('ai-task-input');
+        const results = document.getElementById('ai-results');
+        const container = document.getElementById('backlog-container');
+        const msg = document.getElementById('initial-msg');
+        const loader = document.getElementById('loading');
+        const btn = document.getElementById('ai-btn');
+        const itemCount = document.getElementById('item-count');
+        const userTask = input.value.trim();
+
+        if (!userTask) {
+            alert("Por favor, escribe una tarea primero.");
+            return;
+        }
+
+        // UI State: Loading
+        results.innerHTML = '';
+        msg.style.display = 'none';
+        container.style.display = 'none'; // Hide until ready
+        loader.style.display = 'block';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refinando...';
+
+        const prompt = `Actúa como un experto Agile Coach y Product Owner.
+        El objetivo es descomponer la siguiente tarea épica en tarjetas Kanban listas para trabajar: "${userTask}".
+        
+        Reglas:
+        1. Genera exactamente 3 tarjetas.
+        2. "description" debe ser EXTREMADAMENTE BREVE (máximo 12 palabras).
+        3. "priority" debe ser 'Alta', 'Media' o 'Baja'.
+        
+        Devuelve SOLO un objeto JSON con la estructura:
+        {
+          "cards": [
+            { "title": "...", "description": "...", "tag": "...", "priority": "..." }
+          ]
+        }`;
+
+        try {
+            const response = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                cards: {
+                                    type: "ARRAY",
+                                    items: {
+                                        type: "OBJECT",
+                                        properties: {
+                                            title: { type: "STRING" },
+                                            description: { type: "STRING" },
+                                            tag: { type: "STRING" },
+                                            priority: { type: "STRING" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+            });
+
+            const data = await response.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            const parsedData = JSON.parse(aiText);
+            const cards = parsedData.cards;
+
+            // Show container
+            container.style.display = 'block';
+            itemCount.innerText = `${cards.length} items`;
+
+            // Render Cards
+            cards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                const priorityClass = card.priority ? card.priority.toLowerCase() : 'media';
+                
+                // Simulación de ID de Ticket (ej: KB-101)
+                const ticketId = `KB-${100 + index + Math.floor(Math.random() * 90)}`;
+                
+                cardEl.className = `ai-card ${priorityClass}`;
+                
+                // Animación en cascada (staggered)
+                cardEl.style.animationDelay = `${index * 0.2}s`;
+                
+                cardEl.innerHTML = `
+                    <div class="ai-card-header">
+                        <h5>${card.title}</h5>
+                        <span class="ticket-id">${ticketId}</span>
+                    </div>
+                    <div class="ai-card-body">
+                         <p><strong>DoD:</strong> ${card.description}</p>
+                    </div>
+                    <div class="ai-card-footer">
+                        <span class="ai-tag"><i class="fas fa-tag"></i> ${card.tag}</span>
+                        <span class="priority-badge ${priorityClass}">${card.priority}</span>
+                    </div>
+                `;
+                results.appendChild(cardEl);
+            });
+
+        } catch (error) {
+            console.error(error);
+            container.style.display = 'block'; // Show container to show error
+            results.innerHTML = `<div style="color: #ef5350; font-size: 0.8em; padding: 20px; width: 100%;">
+                <i class="fas fa-exclamation-triangle"></i> Error: No se pudo conectar con el asistente AI.<br>
+                <small>${error.message}</small>
+            </div>`;
+        } finally {
+            loader.style.display = 'none';
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-magic"></i> Refinar';
+        }
+    }
+</script>
+
+</body>
+</html>
